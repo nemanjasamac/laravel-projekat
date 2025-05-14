@@ -1,33 +1,27 @@
 @echo off
+echo -------------------------------------
+echo Nemanja Samac IT66/23
+echo -------------------------------------
 
-IF NOT EXIST .env (
-    COPY .env.example .env
-    ECHO Created .env file. Please update database settings if needed.
+IF NOT EXIST ".env" (
+    copy .env.example .env
 ) ELSE (
-    ECHO .env file already exists.
+    echo .env vec postoji
 )
 
+echo Composer instalacija
 composer install
 
-php artisan key:generate
-
-php artisan storage:link
-
-php artisan migrate:fresh --seed
-
-php artisan config:clear
-php artisan route:clear
-php artisan cache:clear
-php artisan view:clear
-
+echo NPM instalacija
 npm install
 
-npm run build
+echo App kljuc generacija
+php artisan key:generate
 
-ECHO ==================================
-ECHO Projekat Rad Advokatske Kancelarije instaliran
-ECHO ==================================
+echo Postavljanje migracija, seederi
+php artisan migrate:fresh --seed
 
+echo Pokretanje servera :D
 php artisan serve
 
 pause
